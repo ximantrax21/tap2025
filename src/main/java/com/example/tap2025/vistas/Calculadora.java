@@ -26,7 +26,9 @@ public class Calculadora extends Stage { //hereda de Stage para la interfaz
         vBox.setSpacing(15);
         vBox.setPadding(new Insets(15));
         escena = new Scene(vBox, 200,200);
+        escena.getStylesheets().add(getClass().getResource("/styles/Calculadora.css").toString());    //parametro string es la ruta para el archivo
 
+        //URL y UIS la url es localizador de recursos y la uis es identificador de recursos universal
     }
     public void CrearKeyboard(){
         arrBtnTeclado = new Button[4][4];
@@ -37,11 +39,18 @@ public class Calculadora extends Stage { //hereda de Stage para la interfaz
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 arrBtnTeclado[i][j]= new Button(strTeclas[pos]);
+                if(strTeclas[pos].equals("*,-,")) {
+                    arrBtnTeclado[i][j].setId("fontButton");
+                    arrBtnTeclado[i][j].setStyle("-fx-background-color: white");
+                }
                 int finalPos = pos;
                 arrBtnTeclado[i][j].setOnAction(event -> EventoTeclado(strTeclas[finalPos]));
                 arrBtnTeclado[i][j].setPrefSize(50,50);
                 gdpKeyboard.add(arrBtnTeclado[i][j],j,i);
                 pos++;
+
+                //pseudoclases: paseudo:falso, se refieren a clases falsas que llevan un comportamiento distinto, por ejemoplo hover, que lo que hacen es
+                //ejecutar estilo cuando el cursor pasa encima de un elemento
             }
 
         }

@@ -31,13 +31,15 @@ public class HelloApplication extends Application {
         mnbPrincipal=new MenuBar();
         mnbPrincipal.getMenus().addAll(menCompetencia1);
         vBox= new VBox(mnbPrincipal);;
+        scena= new Scene(vBox);
+        scena.getStylesheets().add(getClass().getResource("/styles/main.css").toString());
     }
     @Override
     public void start(Stage stage) throws IOException {
         CrerUI();
         //vBox= new VBox();
         stage.setTitle("Hola Mundo de Eventos <3");
-        stage.setScene(new Scene(vBox));
+        stage.setScene(scena);
         stage.show();
         stage.setMaximized(true); //para maximizar la ventana
     }
