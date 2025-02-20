@@ -21,12 +21,12 @@ public class HelloApplication extends Application {
     private VBox vBox; //herramienta para situar los botones de manera vertical, usar HBox de manera horizontal
     private MenuBar mnbPrincipal;
     private Menu menCompetencia1, getMenCompetencia2;
-    private MenuItem mitCalculadora, mitRestaurante;
+    private MenuItem mitCalculadora, mitRestaurante; //agrega al menu lo que sera la escena de la calculadora
     private Scene scena;
     void CrerUI(){
         //ir de lo particular a lo general
-        mitCalculadora= new MenuItem("Calculadora");
-        mitCalculadora.setOnAction(actionEvent -> new Calculadora());
+        mitCalculadora= new MenuItem("Calculadora"); //crea el elemento -calculadora del menu
+        mitCalculadora.setOnAction(actionEvent -> new Calculadora()); //asigna un evento al mismo tiempo que instancia la nueva calculadora
         mitRestaurante= new MenuItem("Restaurante");
         mitRestaurante.setOnAction(actionEvent -> new VentasRestaurante());
         menCompetencia1=new Menu("Competencia 1");
