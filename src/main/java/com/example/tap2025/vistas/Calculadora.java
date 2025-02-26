@@ -60,65 +60,73 @@ public class Calculadora extends Stage { //hereda de Stage para la interfaz
         }
     }
     public Calculadora() {
-        expresion = new StringBuilder();
-        CrearUI();
-        this.setScene(escena);
-        this.setTitle("Calculadora");
-        this.show();
+        expresion =new StringBuilder(); //inicializa la expresion
+        CrearUI(); // etodo que crea l interfaz grafica
+        this.setScene(escena); //asigna la escena a la calculadora
+        this.setTitle("Calculadora"); //titulo de la ventana
+        this.show(); //muestra la ventana
     }
+    //Metodo que maneja la entrada a los botones
     private void EventoTeclado(String strTecla) {
+        //bloque de codigo que se encarga de limpiar el display
         if (nuevaOperacion) {
             txtDisplay.setText("");
             expresion.setLength(0);
             nuevaOperacion = false;
         }
-
+        //si se preciona "=" da el resultado
         if (strTecla.equals("=")) {
             calcularResultado();
         } else {
-            if (txtDisplay.getText().equals("0")) {
+            if (txtDisplay.getText().equals("0")) { //inicia en  0 y se modifica  cuando ingresas un numero
                 txtDisplay.setText(strTecla);
                 expresion.setLength(0);
             } else {
-                txtDisplay.appendText(strTecla);
+                txtDisplay.appendText(strTecla); //agrega nuevo caracter al display
             }
             expresion.append(strTecla);
         }
     }
 
+    //metodo para calcular el resultado
     private void calcularResultado() {
-        String operacion =expresion.toString();
-        double resultado =evaluarExpresion(operacion);
-        txtDisplay.setText(Double.isNaN(resultado) ? "Error" : String.valueOf(resultado));
-        expresion.setLength(0);
-        expresion.append(Double.isNaN(resultado) ? "" : resultado);
-        nuevaOperacion = true;
+        String operacion=expresion.toString();  //operacion que se ingresa
+        double resultado=evaluarExpresion(operacion); //evalua la expresion
+        txtDisplay.setText(Double.isNaN(resultado) ? "Error":String.valueOf(resultado)); //"muestra mensaje de error en el display"
+        expresion.setLength(0);//borra la expresion almacenada
+        expresion.append(Double.isNaN(resultado) ? "" : resultado); //guarda el resultado
+        nuevaOperacion =true;
     }
 
+    //metodo para las operaciones
     private double evaluarExpresion(String operacion) {
+        //manejamos errores sintacticos (signos)
         if (operacion.matches(".*[+\\-*/]{2,}.*") || operacion.endsWith("+") ||
                 operacion.endsWith("-") || operacion.endsWith("*") || operacion.endsWith("/")) {//operacion.endsWith
-            return Double.NaN; //Doule Nan, es Not a Number, es que una fomr ade cacahr excpeciones en el caso de no ingresar un numero en el dispay
+            return Double.NaN; //Doule Nan, es Not a Number, es que una fomr ade cacahr excpeciones
+            // en el caso de no ingresar un numero en el dispay
         }
 
-        String[] numeros = operacion.split("[-+*/]");
-        String[] operadores = operacion.split("\\d+(?:\\.\\d+)?");
+        String[] numeros = operacion.split("[-+*/]"); //split para divir expresion en numero
+        String[] operadores = operacion.split("\\d+(?:\\.\\d+)?"); //split para obtener los operadores
 
-        if (numeros.length < 2) return Double.NaN;
+        if (numeros.length < 2) return Double.NaN; //manejar error en caso de menos de dos numeros, dato a y dato b
 
-        double resultado = Double.parseDouble(numeros[0]);
-        int opIndex = 1;
-        for (int i = 1; i < numeros.length; i++) {
-            if (opIndex >= operadores.length) break;
-            double num = Double.parseDouble(numeros[i]);
-            switch (operadores[opIndex]) {
-                case "+" -> resultado += num;
-                case "-" -> resultado -= num;
-                case "*" -> resultado *= num;
-                case "/" -> resultado = (num == 0) ? Double.NaN : resultado / num;
+        double resultado = Double.parseDouble(numeros[0]); //convierte a double, en lugar de double se podria usar float
+        //para  menor consumo de memoria
+        int opIndice =1;
+        for (int i =1; i <numeros.length; i++){
+            if (opIndice >=operadores.length) break;
+            double num = Double.parseDouble(numeros[i]); //primer numero a double
+            switch (operadores[opIndice]) { //switch para operaciones
+                case "+" -> resultado +=num;
+                case "-" -> resultado -=num;
+                case "*" -> resultado *=num;
+                case "/" -> resultado =(num==0) ?
+                        Double.NaN:resultado / num; //divicion 0
             }
-            opIndex++;
+            opIndice++;
         }
-        return resultado;
+        return resultado; //retorno de resultado
     }
 }
