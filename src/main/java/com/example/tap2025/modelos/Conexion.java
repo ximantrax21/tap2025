@@ -1,7 +1,6 @@
-package modelos;
+package com.example.tap2025.modelos;
 
 import java.sql.Connection;
-import java.sql.DriverAction;
 import java.sql.DriverManager;
 
 public class Conexion {

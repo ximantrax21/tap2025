@@ -1,6 +1,8 @@
 package com.example.tap2025;
 
 import com.example.tap2025.vistas.Calculadora;
+import com.example.tap2025.vistas.ListaClientes;
+import com.example.tap2025.vistas.Rompecabezas;
 import com.example.tap2025.vistas.VentasRestaurante;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,16 +23,19 @@ public class HelloApplication extends Application {
     private VBox vBox; //herramienta para situar los botones de manera vertical, usar HBox de manera horizontal
     private MenuBar mnbPrincipal;
     private Menu menCompetencia1, getMenCompetencia2;
-    private MenuItem mitCalculadora, mitRestaurante; //agrega al menu lo que sera la escena de la calculadora
+    private MenuItem mitCalculadora, mitRestaurante, mitRompecabezas; //agrega al menu lo que sera la escena de la calculadora
     private Scene scena;
+
     void CrerUI(){
         //ir de lo particular a lo general
         mitCalculadora= new MenuItem("Calculadora"); //crea el elemento -calculadora del menu
         mitCalculadora.setOnAction(actionEvent -> new Calculadora()); //asigna un evento al mismo tiempo que instancia la nueva calculadora
         mitRestaurante= new MenuItem("Restaurante");
-        mitRestaurante.setOnAction(actionEvent -> new VentasRestaurante());
+        mitRestaurante.setOnAction(actionEvent -> new ListaClientes());
+        mitRompecabezas= new MenuItem("Rompecabezas");
+        mitRompecabezas.setOnAction(actionEvent -> new Rompecabezas());
         menCompetencia1=new Menu("Competencia 1");
-        menCompetencia1.getItems().addAll(mitCalculadora, mitRestaurante);
+        menCompetencia1.getItems().addAll(mitCalculadora, mitRestaurante, mitRompecabezas);
         mnbPrincipal=new MenuBar();
         mnbPrincipal.getMenus().addAll(menCompetencia1);
         vBox= new VBox(mnbPrincipal);;
